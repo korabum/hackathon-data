@@ -18,6 +18,18 @@ functions = [
         'url': "%s:%d/function/rm_summary" % (HOST, PORT)
     },
     {
+        'name': 'read_sql',
+        'url': "%s:%d/function/read_sql" % (HOST, PORT)
+    },
+    {
+        'name': 'master_summary',
+        'url': "%s:%d/function/master_summary" % (HOST, PORT)
+    },
+    {
+        'name': 'super_rel_summary',
+        'url': "%s:%d/function/super_rel_summary" % (HOST, PORT)
+    },
+    {
         'name': 'get_uniq_and_missing_values',
         'url': "%s:%d/function/get_uniq_and_missing_values" % (HOST, PORT)
     }
@@ -33,6 +45,7 @@ def list_functions():
 
 @app.route('/function/<name>', methods = ['GET'])
 def get_function(name):
+    # TODO
     return 'Manual of ' + name + '\n'
 
 @app.route('/function/<name>', methods = ['POST'])
