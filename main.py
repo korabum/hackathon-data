@@ -3,7 +3,7 @@ from flask import Flask, jsonify, request
 # functions
 from rm_summary import *
 from get_uniq_and_missing_values import *
-from read_sql import *
+# from read_sql import *
 from super_rel_summary import *
 from master_summary import *
 
@@ -17,10 +17,10 @@ functions = [
         'name': 'rm_summary',
         'url': "%s:%d/function/rm_summary" % (HOST, PORT)
     },
-    {
-        'name': 'read_sql',
-        'url': "%s:%d/function/read_sql" % (HOST, PORT)
-    },
+    #{
+    #    'name': 'read_sql',
+    #    'url': "%s:%d/function/read_sql" % (HOST, PORT)
+    #},
     {
         'name': 'master_summary',
         'url': "%s:%d/function/master_summary" % (HOST, PORT)
@@ -54,8 +54,8 @@ def do_function(name):
         return jsonify(rm_summary(request.data))
     elif name == 'get_uniq_and_missing_values':
         return jsonify((request.data))
-    elif name == 'read_sql':
-        return jsonify(read_sql(request.data))
+    #elif name == 'read_sql':
+    #    return jsonify(read_sql(request.data))
     elif name == 'master_summary':
         return jsonify(master_summary(request.data))
     elif name == 'super_rel_summary':
