@@ -53,13 +53,15 @@ def do_function(name):
     if name == 'rm_summary':
         return jsonify(rm_summary(request.data))
     elif name == 'get_uniq_and_missing_values':
-        return jsonify((request.data))
+        return jsonify(get_uniq_and_missing_values(request.data))
     #elif name == 'read_sql':
     #    return jsonify(read_sql(request.data))
     elif name == 'master_summary':
         return jsonify(master_summary(request.data))
     elif name == 'super_rel_summary':
         return jsonify(super_rel_summary(request.data))
+    
+    print(request.data)
 
 if __name__ == '__main__':
     app.run(host=HOST, port=PORT)
