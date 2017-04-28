@@ -1,4 +1,7 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
+
+# functions
+from rm_summary import rm_summary
 
 app = Flask(__name__)
 
@@ -7,8 +10,8 @@ PORT = 5005
 
 functions = [
     {
-        'name': 'test',
-        'url': "%s:%d/function/test" % (HOST, PORT)
+        'name': 'rm_summary',
+        'url': "%s:%d/function/rm_summary" % (HOST, PORT)
     }
 ]
 
@@ -26,8 +29,8 @@ def get_function(name):
 
 @app.route('/function/<name>', methods = ['POST'])
 def do_function(name):
-    result = {'result': name}
-    return jsonify(result)
+    if name == 'rm_summary':
+        return jsonify(rm_summary(request.data))
 
 if __name__ == '__main__':
     app.run(host=HOST, port=PORT)
