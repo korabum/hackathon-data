@@ -1,7 +1,8 @@
 from flask import Flask, jsonify, request
 
 # functions
-from rm_summary import rm_summary
+from rm_summary import *
+from get_uniq_and_missing_values import *
 
 app = Flask(__name__)
 
@@ -12,6 +13,10 @@ functions = [
     {
         'name': 'rm_summary',
         'url': "%s:%d/function/rm_summary" % (HOST, PORT)
+    },
+    {
+        'name': 'get_uniq_and_missing_values',
+        'url': "%s:%d/function/get_uniq_and_missing_values" % (HOST, PORT)
     }
 ]
 
@@ -31,6 +36,8 @@ def get_function(name):
 def do_function(name):
     if name == 'rm_summary':
         return jsonify(rm_summary(request.data))
+    elif name == 'get_uniq_and_missing_values':
+        return jsonify(get_uniq_and_missing_values(request.data))
 
 if __name__ == '__main__':
     app.run(host=HOST, port=PORT)
