@@ -3,6 +3,9 @@ from flask import Flask, jsonify, request
 # functions
 from rm_summary import *
 from get_uniq_and_missing_values import *
+from read_sql import *
+from super_rel_summary import *
+from master_summary import *
 
 app = Flask(__name__)
 
@@ -37,7 +40,13 @@ def do_function(name):
     if name == 'rm_summary':
         return jsonify(rm_summary(request.data))
     elif name == 'get_uniq_and_missing_values':
-        return jsonify(get_uniq_and_missing_values(request.data))
+        return jsonify((request.data))
+    elif name == 'read_sql':
+        return jsonify(read_sql(request.data))
+    elif name == 'master_summary':
+        return jsonify(master_summary(request.data))
+    elif name == 'super_rel_summary':
+        return jsonify(super_rel_summary(request.data))
 
 if __name__ == '__main__':
     app.run(host=HOST, port=PORT)

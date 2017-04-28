@@ -50,7 +50,7 @@ def get_req():
 	request = {'data':'json','h2o_th':'int','log_th':'int'}
 	return request
 
-def execute(request):
+def master_summary(request):
 	wb = Workbook()
 	ranges = ['all']
 	dest_filename = 'output/ms_%s.xlsx' % (datetime.strftime(datetime.now(),"%Y%m%d%H%M%S"))

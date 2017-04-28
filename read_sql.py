@@ -17,7 +17,7 @@ def config_sql(config):
     db = MySQLdb.connect(host,user,passwd,schema)
     return db
 
-def execute(request):
+def read_sql(request):
     db = config_sql(request['config'])
     cursor = db.cursor()
 

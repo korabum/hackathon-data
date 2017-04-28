@@ -49,7 +49,7 @@ def set_border(ws, cell_range, border=Border()):
 
 ## ====================== SETUP SECTION ============================= ##
 
-def execute(request):
+def super_rel_summary(request):
 	wb = Workbook()
 	dest_filename = 'output/srs_%s.csv' % (datetime.strftime(datetime.now(),"%Y%m%d%H%M%S"))
 	ws1 = wb.create_sheet('grand_summary')

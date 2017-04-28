@@ -2,7 +2,7 @@ import json
 import time
 from datetime import datetime
 
-def execute(json_data):
+def rm_summary(json_data):
     data = json.loads(json_data)
     pred_table_h2o = {}
     pred_table_bl = {}
