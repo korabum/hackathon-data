@@ -5,14 +5,14 @@ setwd(local_path)
 #* @post /fort/log
 log_regression<-function(file_name, target){
   default_result_file_name <- "prediksi_score_all"
-  default_function_initial <- "output/lr"
+  default_function_initial <- "lr"
 
   print(file_name)
   print(target)
 
   now <- format(Sys.time(), "%Y%m%d%H%M%S")
 
-  csv_result_file_name <- paste(default_function_initial,"_",as.character(now),".csv",sep="")
+  csv_result_file_name <- paste("/var/www/node/hek/public/output/",default_function_initial,"_",as.character(now),".csv",sep="")
   csv_file_name <- file_name
 
   #Read json data
