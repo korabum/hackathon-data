@@ -50,6 +50,12 @@ def get_req():
 	request = {'data':'json','h2o_th':'int','log_th':'int'}
 	return request
 
+def man_master_summary():
+	response = {}
+	response['data_type'] = 'json'
+	response['field'] = {'data':["id","hit_rules","transaction_id","timestamp","engine_decision","final_decision","merchant_id","h2o_score","bayesia_score","blacklisted","whitelisted","is_fraud","is_fraud_x","is_fraud_y"],'h2o_th':'int','log_th':'int'}
+	return json.dumps(response)
+
 def master_summary(request):
 	wb = Workbook()
 	ranges = ['all']

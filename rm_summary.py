@@ -2,6 +2,12 @@ import json
 import time
 from datetime import datetime
 
+def man_rm_summary():
+    response = {}
+    response['data_type'] = 'json'
+    response['field'] = {'data':['bruce_id','blacklist','whitelist','h2o_score','learning_label']}
+    return json.dumps(response)
+
 def rm_summary(json_data):
     data = json.loads(json_data)
     pred_table_h2o = {}

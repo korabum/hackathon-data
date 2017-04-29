@@ -5,26 +5,36 @@ from datetime import datetime
 import rm_summary as rs
 
 def get_req():
-    request = {'query': ['select', 'from', 'where','limit'], 'config': ['host','user','pass','schema']}
+    request = {'query': ['select', 'from', 'where','limit']}
     return request
 
-def config_sql(config):
-    host = config['host']
-    user = config['user']
-    passwd = config['pass']
-    schema = config['schema']
+def config_sql():
+    # host = config['host']
+    # user = config['user']
+    # passwd = config['pass']
+    # schema = config['schema']
+    host = '127.0.0.1'
+    user = 'root'
+    passwd = ''
+    schema = 'bruce-ui_production'
 
     db = MySQLdb.connect(host,user,passwd,schema)
     return db
 
+def man_read_sql():
+    response = {}
+    response['data_type'] = 'json'
+    response['field'] = ['select','from','where','limit']
+    return json.dumps(response)
+
 def read_sql(request):
-    db = config_sql(request['config'])
+    db = config_sql()
     cursor = db.cursor()
 
-    select = request['query']['select']
-    table = request['query']['from']
-    where = request['query']['where']
-    limit = request['query']['limit']
+    select = request['select']
+    table = request['from']
+    where = request['where']
+    limit = request['limit']
 
     sql = "SELECT %s FROM %s" % (select, table)
     sql += " WHERE %s" % (where) if where != None else ""

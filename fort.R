@@ -1,19 +1,23 @@
 # change the local_path to your workspace where the csv, json request and csv result will be
-local_path <- "/home/collin/R_Script/hack_a_ton"
+local_path <- "."
 setwd(local_path)
 
 #* @post /fort/log
-log_regression<-function(timestamp){
+log_regression<-function(file_name, target){
   default_result_file_name <- "prediksi_score_all"
-  default_function_initial <- "lr"
+  default_function_initial <- "output/lr"
 
-  csv_result_file_name <- paste(default_result_file_name,"_",as.character(timestamp),".csv",sep="")
-  json_file_name <- paste(default_function_initial,"_",as.character(timestamp),".json",sep="")
-  csv_file_name <- paste(default_function_initial,"_",as.character(timestamp),".csv",sep="")
+  print(file_name)
+  print(target)
+
+  now <- format(Sys.time(), "%Y-%m-%d %H-%M-%S")
+
+  csv_result_file_name <- paste(default_function_initial,"_",as.character(now),".csv",sep="")
+  csv_file_name <- file_name
 
   #Read json data
   library(rjson)
-  input_target<-fromJSON(file = json_file_name)
+  input_target <- target
   
   #Read csv data
   training.data.raw <- read.csv(csv_file_name,header=T,na.strings=c(""))
@@ -32,7 +36,8 @@ log_regression<-function(timestamp){
   test <- data[floor((nrow(data)*0.8)+1):nrow(data),]
   
   #Build model
-  model <- glm(paste(input_target$target, "~."),family=binomial(link='logit'),data=train)
+  model <- glm(paste(input_target, "~."),family=binomial(link='logit'),data=train)
+  # model <- glm(paste(target),family=binomial(link='logit'),data=train)
   summary(model)
   
   #Predict data using model
@@ -54,22 +59,25 @@ log_regression<-function(timestamp){
 }
 
 #* @post /fort/rforest
-rforest <- function(timestamp){
+rforest <- function(file_name,target){
 
   default_result_file_name <- "res_all_h2o"
-  default_function_initial <- "rf"
+  default_function_initial <- "output/rf"
 
-  csv_result_file_name <- paste(default_result_file_name,"_",as.character(timestamp),".csv",sep="")
-  json_file_name <- paste(default_function_initial,"_",as.character(timestamp),".json",sep="")
-  csv_file_name <- paste(default_function_initial,"_",as.character(timestamp),".csv",sep="")
+  now <- format(Sys.time(), "%Y%m%d%H%M%S")
 
+  csv_result_file_name <- paste(default_result_file_name,"_",as.character(now),".csv",sep="")
+  # json_file_name <- paste(default_function_initial,"_",as.character(timestamp),".json",sep="")
+  csv_file_name <- file_name
+  
   setwd(local_path)
 
   library(h2o)
   localH2O = h2o.init(ip = 'localhost', port = 54321)
   
   library(rjson)
-  input_target<-fromJSON(file = json_file_name)
+  # input_target<-fromJSON(file = json_file_name)
+  input_target <- target
   
   # Import data
   data_raw <- read.csv(csv_file_name, header=T, na.string=c(""))
@@ -95,7 +103,7 @@ rforest <- function(timestamp){
   summary(test.h2o)
   
   # independent variables
-  y.dep = input_target$target
+  y.dep = input_target
   x.indep = c(2:11)
   
   #Random Forest
@@ -129,6 +137,8 @@ rforest <- function(timestamp){
   write.csv(res_all, csv_result_file_name, row.names = FALSE)
   csv_result_full_path <- paste(local_path,"/",csv_result_file_name,sep="")
   
+
+
   return (csv_result_full_path)
 }
 

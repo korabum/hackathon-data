@@ -1,5 +1,11 @@
 import json
 
+def man_get_uniq_and_missing_values():
+    response = {}
+    response['data_type'] = 'csv'
+    response['field'] = 'any'
+    return json.dumps(response)
+
 def get_uniq_and_missing_values(json_data):
     data = json.loads(json_data)
 

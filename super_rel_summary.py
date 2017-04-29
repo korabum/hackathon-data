@@ -49,6 +49,12 @@ def set_border(ws, cell_range, border=Border()):
 
 ## ====================== SETUP SECTION ============================= ##
 
+def man_super_rel_summary():
+	response = {}
+	response['data_type'] = 'json'
+	response['field'] = {'data':['id','transaction_id','timestamp','hit_rules','engine_decision','final_decision','h2o_score','bayesia_score','blacklisted','whitelisted','is_fraud_x','is_fraud_y','is_fraud'],'h2o_th':'int','log_th':'int'}
+	return json.dumps(response)
+
 def super_rel_summary(request):
 	wb = Workbook()
 	dest_filename = 'output/srs_%s.csv' % (datetime.strftime(datetime.now(),"%Y%m%d%H%M%S"))

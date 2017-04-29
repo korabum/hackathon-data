@@ -32,6 +32,10 @@ functions = [
     {
         'name': 'get_uniq_and_missing_values',
         'url': "%s:%d/function/get_uniq_and_missing_values" % (HOST, PORT)
+    },
+    {
+        'name': 'logistic_regression',
+        'url': "%s:%d/fort/rforest" % (HOST, 5006)
     }
 ]
 
@@ -46,6 +50,16 @@ def list_functions():
 @app.route('/function/<name>', methods = ['GET'])
 def get_function(name):
     # TODO
+    if name == 'get_uniq_and_missing_values':
+        return man_get_uniq_and_missing_values()
+    if name == 'rm_summary':
+        return man_rm_summary()
+    if name == 'master_summary':
+        return man_master_summary()
+    if name == 'super_rel_summary':
+        return man_super_rel_summary()
+    # if name == 'read_sql':
+    #     return man_read_sql()
     return 'Manual of ' + name + '\n'
 
 @app.route('/function/<name>', methods = ['POST'])
@@ -64,4 +78,4 @@ def do_function(name):
     print(request.data)
 
 if __name__ == '__main__':
-    app.run(host=HOST, port=PORT)
+    app.run(host=HOST, port=PORT, debug=True)
