@@ -10,7 +10,7 @@ log_regression<-function(file_name, target){
   print(file_name)
   print(target)
 
-  now <- format(Sys.time(), "%Y-%m-%d %H-%M-%S")
+  now <- format(Sys.time(), "%Y%m%d%H%M%S")
 
   csv_result_file_name <- paste(default_function_initial,"_",as.character(now),".csv",sep="")
   csv_file_name <- file_name
@@ -52,10 +52,13 @@ log_regression<-function(file_name, target){
   colnames(a3) <- c("ID","Blacklist","Whitelist","Learning_Label", "R_Score")
   a4<-as.data.frame(a3)
 
+  
+
   write.csv(a4,file = csv_result_file_name, row.names = FALSE)
   csv_result_full_path <- paste(local_path,"/",csv_result_file_name,sep="")
+  response <- list(status= 200,output= paste(normalizePath(csv_result_full_path)))
   
-  return (csv_result_full_path)
+  return (toJSON(response))
 }
 
 #* @post /fort/rforest
@@ -136,8 +139,6 @@ rforest <- function(file_name,target){
   # write.csv(res_test, "res_test.csv", row.names = FALSE)
   write.csv(res_all, csv_result_file_name, row.names = FALSE)
   csv_result_full_path <- paste(local_path,"/",csv_result_file_name,sep="")
-  
-
 
   return (csv_result_full_path)
 }
